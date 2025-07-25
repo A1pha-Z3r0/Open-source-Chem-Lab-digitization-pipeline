@@ -63,9 +63,9 @@ class Ocr():
 
     def text_detection(self, img_path):
         # Load the weights from our repository
-        model_path = hf_hub_download(local_dir=".",
-                                    repo_id="armvectores/yolov8n_handwritten_text_detection",
-                                    filename="best.pt")
+        model_path = hf_hub_download(local_dir="..",
+                                     repo_id="armvectores/yolov8n_handwritten_text_detection",
+                                     filename="../best.pt")
         model = YOLO(model_path)
 
         # Do the predictions

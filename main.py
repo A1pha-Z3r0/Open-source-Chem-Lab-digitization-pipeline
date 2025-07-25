@@ -2,8 +2,8 @@
 This script has the main python functions
 """
 
-from files_reader import FileHandler
-from ocr import Ocr
+from src.files_reader import FileHandler
+from src.ocr import Ocr
 
 def main():
     # initialize file handler class
