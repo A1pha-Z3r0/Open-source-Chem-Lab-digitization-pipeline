@@ -1,5 +1,5 @@
 # local repo specific
-
+suma.py
 
 # Local environments
 venv
@@ -7,6 +7,7 @@ venv
 .cache
 __pycache__
 .idea
+.DS_Store
 
 # Datasets
 CROHME_full_v2
