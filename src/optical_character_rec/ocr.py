@@ -40,7 +40,6 @@ class Ocr():
                 
                 image = preprocessor.normalize(image)
 
-
                 output = self.model(image)
 
             else:
@@ -49,6 +48,7 @@ class Ocr():
                 image = preprocessor.thresholding(image)
 
                 print(f"input shape after threshold: {image.shape}")
+                print(f"TO DEBUG: data type of input: {image.dtype}")
 
                 output = self.model([image])
 

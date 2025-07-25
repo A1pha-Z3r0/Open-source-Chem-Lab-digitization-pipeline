@@ -17,27 +17,31 @@ class FileHandler():
 
     def files_to_tensor(self, path):
         
-        # Img to tensor class instantiation
+
         # Define your folder path
         _path = Path(path)
+        # Img to tensor class instantiation
         converter = ImgConvertToTensor()
 
         try:
             # check if file is supported
             if _path.suffix in [".png", ".jpeg", ".jpg", ".pdf"]:   
-                #Helper from util thats called to make into tensor
+                #Helper from util called to make into tensor
                 if _path.suffix == ".pdf":
-                    tensor = converter.pdf_to_numpy(_path)
-                    self.batch = np.stack(tensor, axis = 0)
+                    tensor = converter.pdf_to_numpy(_path)  # SHAPE: [H, W, C]
+
+                    # Batch it for better processing
+                    self.batch = np.stack(tensor, axis = 0) # SHAPE: [batch, H, W, C]
                 
                 else:
-                    tensor = converter.img_to_numpy(_path)
+                    tensor = converter.img_to_numpy(_path)# SHAPE: [H, W, C]
                     self.list_img_np_array.append(tensor)
+                    # Batch it for better processing
                     self.batch = np.stack(self.list_img_np_array, axis = 0)
 
+                # Empty list to free space
                 self.list_img_np_array = []
-                print(f"batch shape: {self.batch.shape}")
-
+                print(f"TO DEBUG: batch shape: {self.batch.shape}")
                 return self.batch
             
             # Loop over all entries in a dir
@@ -53,7 +57,7 @@ class FileHandler():
                     # To debug
                     print(f"To debug: {tensors.shape}")
 
-                    # Batch together images to create a single tensor
+            # Batch together images to create a single tensor
             self.batch = np.stack(self.list_img_np_array, axis = 0)
             # Make sure that the attribute is 0 to prevent data leaking
             self.list_img_np_array = []

@@ -1,7 +1,7 @@
 """
 Test script to demonstrate the improved normalize function
 """
-
+"""
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -38,3 +38,4 @@ def test_normalize_function():
 
 if __name__ == "__main__":
     test_normalize_function() 
+"""
