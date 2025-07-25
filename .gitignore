@@ -1,0 +1,19 @@
+# local repo specific
+
+
+# Local environments
+venv
+.vscode
+.cache
+__pycache__
+.idea
+
+# Datasets
+CROHME_full_v2
+hsf_page
+best.pt
+math_dataset.zip
+NIST_raw_handwritten.zip
+
+
+
