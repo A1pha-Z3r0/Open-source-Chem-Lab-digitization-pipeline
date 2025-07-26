@@ -12,9 +12,9 @@ ocr = Ocr()
 
 # Route file-upload calls the ocr processing
 @router.post("/file-upload", status_code= status.HTTP_201_CREATED)
-async def upload_file(file):
+async def upload_file_to_db(file):
     """
-    Processes a file into tensors and calls the ocr_processing to store the text
+    Takes the file and stores it in a DB and returns a JSON object for it
 
 
     Args:
@@ -27,6 +27,10 @@ async def upload_file(file):
     Returns:
         HTTPS JSON object: if file upload successful a JSON with body text
     """
+    contents = file
+
+    if not contents:
+        raise HTTPException(status_code=400, detail="Empty fail")
 
     try:
         batch_tensors = handler.files_to_tensor(file)
