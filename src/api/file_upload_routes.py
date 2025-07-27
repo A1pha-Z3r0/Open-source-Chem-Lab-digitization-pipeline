@@ -3,7 +3,7 @@ This file consists routing for file upload
 """
 
 from fastapi import APIRouter, HTTPException, status, UploadFile
-from repositories.db_utils import insert_file
+from services.file_upload_to_db import file_uploader
 
 router = APIRouter()
 
@@ -23,19 +23,7 @@ async def upload_file_to_db(file : UploadFile):
     Returns:
         dict: JSON response containing a success message and unique file ID
     """
-    contents = await file.read()
-
-    if not contents:
-        raise HTTPException(status_code=400, detail="Empty file uploaded")
-
-    try:
-        _id = insert_file(contents)
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail= f"Error{e}")
-
-
-    return {"message": "File uploaded successfully", "id": str(_id) }
+    return await file_uploader(file)
 
 
 
