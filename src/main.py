@@ -1,9 +1,19 @@
 """
 This script has the main python functions
 """
+from fastapi import FastAPI
+from api import file_upload_routes
 
-from optical_character_rec.files_reader import FileHandler
-from optical_character_rec.ocr import Ocr
+app = FastAPI()
+
+app.include_router(file_upload_routes.router, prefix = "/files")
+
+
+
+
+"""
+from services.files_reader import FileHandler
+from services.ocr import Ocr
 
 def main():
     # initialize file handler class
@@ -26,3 +36,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
