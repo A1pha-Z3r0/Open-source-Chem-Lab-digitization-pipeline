@@ -16,7 +16,19 @@ OCR:
 STEP
 1. Download dataset and get few datapoints out for fast testing (done)
 2. Run libraries and udnerstand the output (done)
-3. How to store
+# Since the output is soo bad in real datasets for over-the-counter OCR have to train a model
+# But I'm first proceeding with the pipeline to get everything up and running
+3. How to store and what to store
+   3.1 Storing in mongoDB
+   3.2 What to store: 
+        * doc_type : str
+        * Doc : pdf,png,jpeg,jpg
+        * Tensors of respective doc : np.array
+        * predicted output text : str
+        * predicted output doc : pdf,png,jpeg,jpg
+
+
+4. FastAPI to nicely package everything.
 
 # Tested doctr the accuracy sucks, like its really bad.
 
@@ -37,7 +49,7 @@ Important links:
 2. Doctr quick start: https://pypi.org/project/python-doctr/
 3. OSRA for optical stuctures to smiles: https://cactus.nci.nih.gov/osra/
 4. DIETR better than yolo: https://github.com/dnth/DEIMKit (https://arxiv.org/pdf/2412.04234)
-
+5. Database Mongodb: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
 
 Notes:
 1. Sometimes its important to clear attributes after using bc it will live as long as the instance is

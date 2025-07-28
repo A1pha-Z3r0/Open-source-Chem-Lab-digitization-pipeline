@@ -3,9 +3,13 @@ torch --pre
 torchvision --pre
 python-doctr[torch,viz,html,contrib]
 pathlib
-
 OpenCV-python
 pillow
-
 ultralytics
-
+pymongo
+fastapi
+uvicorn
+python-dotenv
+python-multipart
+celery
+#python -m pip install "pymongo[srv]==3.12"

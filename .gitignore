@@ -1,5 +1,8 @@
 # local repo specific
 suma.py
+api_main.py
+summa123.py
+
 
 # Local environments
 venv
@@ -8,9 +11,9 @@ venv
 __pycache__
 .idea
 .DS_Store
+.env
 
 # Datasets
-CROHME_full_v2
 hsf_page
 best.pt
 math_dataset.zip
