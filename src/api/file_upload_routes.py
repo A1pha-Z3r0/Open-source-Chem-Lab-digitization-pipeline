@@ -2,7 +2,7 @@
 This file consists routing for file upload
 """
 
-from fastapi import APIRouter, HTTPException, status, UploadFile
+from fastapi import APIRouter, status, UploadFile
 from services.file_upload_to_db import file_uploader
 
 router = APIRouter()

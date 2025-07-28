@@ -4,37 +4,42 @@ This has all the modules for reading a folder / database and pass it on to ocr
 
 import numpy as np
 
+
 # pathlib is more OOP than os
-from pathlib import Path
+#from pathlib import Path
 
 from utils import ImgConvertToTensor
-
 
 class FileHandler():
     def __init__(self):
         self.list_img_np_array = []
         self.batch = None
+        self.temps = "../../temps"
 
-    def files_to_tensor(self, path):
+
+    def db_to_tmps():
+        pass
+
+    def files_to_tensor(self, file, file_type):
         
 
         # Define your folder path
-        _path = Path(path)
+        #_path = Path(path)
         # Img to tensor class instantiation
         converter = ImgConvertToTensor()
 
         try:
             # check if file is supported
-            if _path.suffix in [".png", ".jpeg", ".jpg", ".pdf"]:   
+            if file_type in [".png", ".jpeg", ".jpg", ".pdf"]:   
                 #Helper from util called to make into tensor
-                if _path.suffix == ".pdf":
-                    tensor = converter.pdf_to_numpy(_path)  # SHAPE: [H, W, C]
+                if file_type.suffix == ".pdf":
+                    tensor = converter.pdf_to_numpy(file_type)  # SHAPE: [H, W, C]
 
                     # Batch it for better processing
                     self.batch = np.stack(tensor, axis = 0) # SHAPE: [batch, H, W, C]
                 
                 else:
-                    tensor = converter.img_to_numpy(_path)# SHAPE: [H, W, C]
+                    tensor = converter.img_to_numpy(file_type)# SHAPE: [H, W, C]
                     self.list_img_np_array.append(tensor)
                     # Batch it for better processing
                     self.batch = np.stack(self.list_img_np_array, axis = 0)
@@ -44,8 +49,8 @@ class FileHandler():
                 print(f"TO DEBUG: batch shape: {self.batch.shape}")
                 return self.batch
             
-            # Loop over all entries in a dir
-            for entry in _path.iterdir():
+            """# Loop over all entries in a dir
+            for entry in file_type.iterdir():
                 # Check if the type is an image
                 if entry.suffix in [".png", ".jpeg", ".jpg"]:
                     print(entry.name)
@@ -55,7 +60,7 @@ class FileHandler():
                     self.list_img_np_array.append(tensors)
 
                     # To debug
-                    print(f"To debug: {tensors.shape}")
+                    print(f"To debug: {tensors.shape}")"""
 
             # Batch together images to create a single tensor
             self.batch = np.stack(self.list_img_np_array, axis = 0)
@@ -70,3 +75,5 @@ class FileHandler():
         except Exception as e:
             print(f"Error bhaiya1: {e}")
             return None
+
+
