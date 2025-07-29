@@ -10,6 +10,8 @@ import numpy as np
 
 from utils import ImgConvertToTensor
 
+from repositories.db_utils import list_files
+
 class FileHandler():
     def __init__(self):
         self.list_img_np_array = []
@@ -18,7 +20,16 @@ class FileHandler():
 
 
     def db_to_tmps():
-        pass
+        ids_list = list_files()
+
+        return
+    
+
+
+
+
+
+    
 
     def files_to_tensor(self, file, file_type):
         

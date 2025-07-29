@@ -1,10 +1,6 @@
 from .files_reader import FileHandler
 from .ocr import Ocr
-from celery import Celery
-
-
-app = Celery('task', 
-             broker='pyamqp://guest:guest@localhost:5672/')
+from celery_app import app
 
 @app.task
 def ocr_workflow():

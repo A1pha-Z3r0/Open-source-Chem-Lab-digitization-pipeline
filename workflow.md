@@ -54,3 +54,4 @@ Important links:
 Notes:
 1. Sometimes its important to clear attributes after using bc it will live as long as the instance is
 2. A small observation where if we do crop an image and send it to an ocr it perfoms slightly better.
+3. grid fs uses buckets inside of mongodb Databases, the default name is fs but we can put a existing collection as bucket

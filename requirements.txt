@@ -12,4 +12,5 @@ uvicorn
 python-dotenv
 python-multipart
 celery
+watchdog
 #python -m pip install "pymongo[srv]==3.12"
