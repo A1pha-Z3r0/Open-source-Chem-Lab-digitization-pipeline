@@ -1,4 +1,5 @@
 from celery import Celery
+from datetime import timedelta
 
 app = Celery(
     "ocr_pipeline",
@@ -8,3 +9,12 @@ app = Celery(
 
 # Automatically discover all tasks from submodules
 app.autodiscover_tasks([ "services", "repositories"])
+
+
+app = Celery("batch")
+app.conf.beat_schedule = {
+    'batch-every-10-seconds': {
+        'task': 'services.ocr_pipeline',
+        'schedule': timedelta(minutes=5),
+    },
+}

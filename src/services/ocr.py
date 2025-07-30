@@ -22,7 +22,7 @@ class Ocr():
         self.model = ocr_predictor('linknet_resnet50', 'master', 
                                    pretrained= True ).to(self.device)
 
-    def full_ocr_pipeline(self, images):
+    def full_ocr_pipeline(self, batch):
         """
         This function runs the model and outputs the prediction.
         Params: np array of dim [batch, number of images, height, width, channel]
@@ -30,10 +30,26 @@ class Ocr():
         """
         preprocessor = ImagePreprocess()
 
-        for image in images:
-            
-            print(f"Image shape: {image.shape}")
-            
+        for _file_name, tensor_list in batch.items():
+
+            if isinstance(tensor_list,list):
+
+                output = self.model(tensor_list)
+
+                text_output = output.render()
+
+            print(f"file name: {_file_name} \n predicted text: {text_output}")
+
+            #visualize_page(output.pages[0].export(), tensor_list)
+            #plt.show()
+
+        return text_output
+
+        """
+            for i in range (0, len(tensor_list)):
+
+                print(f"Image shape: {tensor_list[i].shape}")
+                
             if isinstance(image,list):
                 print(type(image))
                 print(image.shape)
@@ -59,7 +75,7 @@ class Ocr():
             visualize_page(output.pages[0].export(), image)
             plt.show()
 
-        return text_output
+        return text_output"""
 
     def text_detection(self, img_path):
         # Load the weights from our repository

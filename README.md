@@ -36,6 +36,9 @@ docker stop rabbit-mq  # to start just docker start rabbit-mq
 ```bash
 celery -A {place_holder} worker --loglevel=INFO  # path where Celery is instantiated
 ```
+```bash
+celery -A celery_app worker -Q processing --loglevel=INFO
+```
 
 
 

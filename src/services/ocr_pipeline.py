@@ -9,15 +9,16 @@ def get_FileHandler():
     return None
 
 # we call this every 5 mins
-@app.task
+@app.task(queue = "processing")
 def ocr_workflow():
     # initialize file handler class
     handler = get_FileHandler()
 
     list_ids = handler.db_to_tmps()
+    print(f"The number of files present: {len(list_ids)}")
 
     # pass the directory with files
-    batch_tensors = handler.files_to_tensor(_file, _filetype)
+    batch_tensors = handler.files_to_tensor()
     
     # initialize ocr class
     ocr = Ocr()
