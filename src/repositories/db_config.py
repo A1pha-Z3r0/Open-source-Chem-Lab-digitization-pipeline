@@ -39,7 +39,7 @@ def database_config(method = "local"):
         except Exception as e:
             print(e)
 
-
+    # db and collection creation are idempotent
     db = client[db_name]
     collection = db[collection_name]
 

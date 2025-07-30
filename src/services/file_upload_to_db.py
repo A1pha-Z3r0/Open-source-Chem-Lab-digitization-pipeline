@@ -42,7 +42,7 @@ async def file_uploader(file: UploadFile):
     file_hash = hashlib.sha256(contents).hexdigest()
 
     # Check if file is supported 
-    if file_type not in ["image/jpeg", "image/png", "image/jpeg", "application/pdf"]:
+    if file_type not in ["image/jpeg", "image/png", "image/jpg", "application/pdf"]:
         raise HTTPException(status_code=400, detail="File not supported")
 
     # Check if file is empty
@@ -59,7 +59,7 @@ async def file_uploader(file: UploadFile):
         raise HTTPException(status_code=500, detail= f"Error{e}")
     
     # Trigger a event based response to process the db content.
-    ocr_workflow.delay()
+    #ocr_workflow.delay()
 
     return {"message": "File uploaded successfully", "id": str(_id) }
 
