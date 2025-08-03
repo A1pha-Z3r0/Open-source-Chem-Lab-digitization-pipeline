@@ -16,11 +16,11 @@ from matplotlib import pyplot as plt
 
 
 class Ocr():
-    def __init__(self,):
+    def __init__(self, device):
         # to turn gpu in mac if accelerator is available
         self.device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
         self.model = ocr_predictor('linknet_resnet50', 'master', 
-                                   pretrained= True ).to(self.device)
+                                   pretrained= True ).to(device)
 
     def full_ocr_pipeline(self, batch):
         """
@@ -40,42 +40,13 @@ class Ocr():
 
             print(f"file name: {_file_name} \n predicted text: {text_output}")
 
+        else:
+            raise TypeError("Error bhaiya: The input tensors are not a list!") 
+
             #visualize_page(output.pages[0].export(), tensor_list)
             #plt.show()
 
         return text_output
-
-        """
-            for i in range (0, len(tensor_list)):
-
-                print(f"Image shape: {tensor_list[i].shape}")
-                
-            if isinstance(image,list):
-                print(type(image))
-                print(image.shape)
-                
-                image = preprocessor.normalize(image)
-
-                output = self.model(image)
-
-            else:
-                image = preprocessor.normalize(image)
-
-                image = preprocessor.thresholding(image)
-
-                print(f"input shape after threshold: {image.shape}")
-                print(f"TO DEBUG: data type of input: {image.dtype}")
-
-                output = self.model([image])
-
-            text_output = output.render()
-
-            print(text_output)
-
-            visualize_page(output.pages[0].export(), image)
-            plt.show()
-
-        return text_output"""
 
     def text_detection(self, img_path):
         # Load the weights from our repository

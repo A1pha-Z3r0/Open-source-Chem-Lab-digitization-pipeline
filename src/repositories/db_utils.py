@@ -23,7 +23,7 @@ def insert_file(file_object, hash_code, file_type, file_name):
     file_type = file_type.split("/")[-1]
     
     metadata = {
-        "shah": hash_code,
+        "shah256": hash_code,
         "MIME_file_type":file_type,
         "text_extraction_status" : "Not Started"
     }
@@ -34,6 +34,7 @@ def insert_file(file_object, hash_code, file_type, file_name):
 
     return _id
 
+# def write_notStarted_to_temps():
 def list_not_started_files():
     list_ids = []
 
@@ -51,7 +52,7 @@ def list_not_started_files():
         #file_extension = grid_out.filename.rsplit(".")[1]
 
         # declare temps folder and format of file name
-        temps_folder = f"../../temps/{file_id}_{file_name}"
+        temps_folder = f"temps/{file_id}__{file_name}"
 
 
         try:

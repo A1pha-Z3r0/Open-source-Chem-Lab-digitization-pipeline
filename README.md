@@ -1,3 +1,5 @@
+# UNDER CONSTRUCTION PLEASE MOVE WITH CAUTION
+
 # A digitization pipeline for a typical Biochemistry Lab
 
 ## Description
@@ -37,10 +39,25 @@ docker stop rabbit-mq  # to start just docker start rabbit-mq
 celery -A {place_holder} worker --loglevel=INFO  # path where Celery is instantiated
 ```
 ```bash
-celery -A celery_app worker -Q processing --loglevel=INFO
+PYTHONPATH=./src celery -A celery_app worker -Q processing --loglevel=INFO
 ```
 
+6. Start a celery beat
+```bash
+PYTHONPATH=./src celery -A celery_app beat --loglevel=INFO
 
+```
+
+6. Run fastAPI from inside src
+```bash
+uvicorn main:app --reload
+```
+```bash
+# to kill port usage if its already in use
+lsof -i :8000
+kill -9 12345
+
+```
 
 
 

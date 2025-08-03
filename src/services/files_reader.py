@@ -12,13 +12,13 @@ from collections import OrderedDict
 
 
 class FileHandler():
-    def __init__(self):
+    def __init__(self,):
         self.list_img_np_array = []
         self.batch = OrderedDict()
-        self.temps_folder = "../../temps"
+        self.temps_folder = "temps"
 
 
-    def db_to_tmps():
+    def db_to_tmps(self,):
         ids_list = list_not_started_files()
         return ids_list
 
@@ -39,7 +39,7 @@ class FileHandler():
 
                     tensors = converter.img_to_numpy(entry) # SHAPE: [H, W, C]
 
-                    self.batches[entry.name] = list(tensors)
+                    self.batch[entry.name] = list(tensors)
 
                     # To debug
                     print(f"To debug: {tensors.shape}")
@@ -47,7 +47,7 @@ class FileHandler():
                 elif entry.suffix.lower() in [".pdf"]:
                     tensors = converter.pdf_to_numpy(entry)  # a list of pages, each element having SHAPE: [H, W, C]
 
-                    self.batches[entry.name] = tensors
+                    self.batch[entry.name] = tensors
 
                 else:
                     raise TypeError("Unexpected file type")
@@ -61,7 +61,7 @@ class FileHandler():
         # Make sure that the attribute is 0 to prevent data leaking
         self.list_img_np_array = []
         # To debug
-        print(f"To debug: Passing this onto ocr as a batch: {self.batch.shape}")
+        print(f"To debug: Passing this onto ocr as a batch: {len(self.batch)}")
 
         return self.batch
                 

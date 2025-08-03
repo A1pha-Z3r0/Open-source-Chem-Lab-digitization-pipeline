@@ -4,8 +4,7 @@ to check duplicates
 """
 from fastapi import UploadFile, HTTPException
 from repositories.db_utils import insert_file
-from ocr_pipeline import ocr_workflow
-from .task import add
+from .ocr_pipeline import ocr_workflow
 import hashlib
 
 
