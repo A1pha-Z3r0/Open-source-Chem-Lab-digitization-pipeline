@@ -19,9 +19,9 @@ brew services start mongodb-community@8.0
 brew services stop mongodb-community@8.0
 ```
 
-3. install celery
+3. install dramatiq and ray
 ```bash
-pip install celery
+pip install Ray dramatiq
 ```
 
 4. Start a rabbitmq server on docker
@@ -33,20 +33,8 @@ docker run docker run --hostname rabbitmq --name rabbit-mq -p 15672:15672 -p 567
 docker stop rabbit-mq  # to start just docker start rabbit-mq
 ```
 
-5. Start a celery worker
+5. Start a worker
 
-```bash
-celery -A {place_holder} worker --loglevel=INFO  # path where Celery is instantiated
-```
-```bash
-PYTHONPATH=./src celery -A celery_app worker -Q processing --loglevel=INFO
-```
-
-6. Start a celery beat
-```bash
-PYTHONPATH=./src celery -A celery_app beat --loglevel=INFO
-
-```
 
 6. Run fastAPI from inside src
 ```bash
