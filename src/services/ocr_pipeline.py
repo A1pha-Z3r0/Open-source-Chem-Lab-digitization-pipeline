@@ -1,42 +1,33 @@
-from .files_reader import FileHandler
-from .ocr import Ocr
-import torch
-#from repositories.db_utils import write_notStarted_to_temps()
+from services.files_reader import FileHandler
+from services.ocr import Ocr
+import ray
+import redis 
 
-#_handler = None  # private module-level cache
+redis_client = redis.Redis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
 
-# Periodically call this; and only call inference "when the load is enough"
-def get_FileHandler():
-    global _handler
-    if _handler is None:
-        _handler = FileHandler()
-    return _handler
+ray.init()  
 
-#app.task(queue = "file handler", name = "" )
-#async def write_to_temps():
-#    list_ids = write_notStarted_to_temps()
+last_id = redis_client.get("ocr_last_id") or "0"
 
-# we call this every 5 mins
-def ocr_workflow():
-    # initialize file handler class
-    print("hello Im running")
 
-    device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
+while True:
+    msgs = redis_client.xread({"ocr_stream": last_id}, block=0)
+    for _, entries in msgs:
+        for message_id, data in entries:
+            if data.get("event") == "files_ready":
+                handler = FileHandler()
 
-    handler = FileHandler()
+                batch_tensors = handler.files_to_tensor()
 
-    list_ids = handler.db_to_tmps()
+                ocr = Ocr.remote()
 
-    print(f"The number of files present: {len(list_ids)}")
+                ocr.full_ocr_pipeline.remote(batch_tensors)
+                
+                last_id = message_id
+                redis_client.set("ocr_last_id", last_id)
 
-    # pass the directory with files
-    batch_tensors = handler.files_to_tensor()
-    
-    # initialize ocr class
-    ocr = Ocr(device)
-    
-    # text detection
-    #ocr.text_detection("./test/f0072_36.png")
-    
-    # run the pipeline
-    ocr.full_ocr_pipeline(batch_tensors)
+
+   
+

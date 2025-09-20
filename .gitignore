@@ -1,7 +1,6 @@
 # local repo specific
 suma.py
 api_main.py
-summa123.py
 
 
 # Local environments
@@ -12,10 +11,10 @@ __pycache__
 .idea
 .DS_Store
 .env
+*.db
 
 # Datasets
 hsf_page
-best.pt
 math_dataset.zip
 NIST_raw_handwritten.zip
 test/organic_chem_handwritten_notes1.pdf

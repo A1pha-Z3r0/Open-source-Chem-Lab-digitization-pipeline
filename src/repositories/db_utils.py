@@ -23,7 +23,7 @@ def insert_file(file_object, hash_code, file_type, file_name):
     file_type = file_type.split("/")[-1]
     
     metadata = {
-        "shah256": hash_code,
+        "sha256": hash_code,
         "MIME_file_type":file_type,
         "text_extraction_status" : "Not Started"
     }
@@ -34,8 +34,7 @@ def insert_file(file_object, hash_code, file_type, file_name):
 
     return _id
 
-# def write_notStarted_to_temps():
-def list_not_started_files():
+def write_to_temps():
     list_ids = []
 
     for grid_out in grid_fs.find({"metadata.text_extraction_status": "Not Started"},
@@ -54,7 +53,6 @@ def list_not_started_files():
         # declare temps folder and format of file name
         temps_folder = f"temps/{file_id}__{file_name}"
 
-
         try:
             db.fs.files.update_one(
             {"_id": file_id},
@@ -69,11 +67,9 @@ def list_not_started_files():
             {"_id": file_id},
             {"$set": {"metadata.text_extraction_status": "Not Started"}})
 
-
             print(f"Error Occrured: {e}")
             raise e
 
-    
         list_ids.append(file_id)
 
     # return file paths and file_id (file_id to update it whenevr it finished)

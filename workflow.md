@@ -7,8 +7,10 @@ Datasets:
 In production: MD5 hash file is a file hash unique for its contents, so you can check if the contents are the same(integrity check)
 
 OCR:
-1. Keras-OCR
-2. Doctr
+1. Keras-OCR X
+2. Doctr     X
+3. https://github.com/rednote-hilab/dots.ocr
+4. https://github.com/docling-project/docling
 
 ### For inkml files(chrome dataste) we have to write a png extraction script to convert the ink strokes to the actual image.
 
@@ -55,3 +57,6 @@ Notes:
 1. Sometimes its important to clear attributes after using bc it will live as long as the instance is
 2. A small observation where if we do crop an image and send it to an ocr it perfoms slightly better.
 3. grid fs uses buckets inside of mongodb Databases, the default name is fs but we can put a existing collection as bucket
+
+TODO:
+1. UPDATE REQUIREMENTS.txt (celery is missing god knows what else)

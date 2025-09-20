@@ -14,4 +14,6 @@ python-multipart
 ray
 dramatiq
 watchdog
+requests
 #python -m pip install "pymongo[srv]==3.12"
+#pip install -U "ray"

@@ -3,24 +3,27 @@ This script has the ocr pipeline
 """
 
 import torch 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from doctr.models import ocr_predictor
 
-from doctr.utils.visualization import visualize_page
+#from doctr.utils.visualization import visualize_page
 from utils import ImagePreprocess
-
-from ultralytics import YOLO
-from huggingface_hub import hf_hub_download
-from matplotlib import pyplot as plt
+import ray
 
 
+#from ultralytics import YOLO
+#from huggingface_hub import hf_hub_download
+#from matplotlib import pyplot as plt
+
+
+@ray.remote
 class Ocr():
-    def __init__(self, device):
+    def __init__(self):
         # to turn gpu in mac if accelerator is available
         self.device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
         self.model = ocr_predictor('linknet_resnet50', 'master', 
-                                   pretrained= True ).to(device)
+                                   pretrained= True ).to(self.device)
 
     def full_ocr_pipeline(self, batch):
         """
@@ -33,6 +36,9 @@ class Ocr():
         for _file_name, tensor_list in batch.items():
 
             if isinstance(tensor_list,list):
+                
+                print(f"To debug: {tensor_list.shape}")
+                print(f"To debug: ")
 
                 output = self.model(tensor_list)
 
@@ -47,27 +53,5 @@ class Ocr():
             #plt.show()
 
         return text_output
-
-    def text_detection(self, img_path):
-        # Load the weights from our repository
-        model_path = hf_hub_download(local_dir="..",
-                                     repo_id="armvectores/yolov8n_handwritten_text_detection",
-                                     filename="../best.pt")
-        model = YOLO(model_path)
-
-        # Do the predictions
-        res = model.predict(
-            source=img_path, 
-            project='.',
-            name='detected', 
-            exist_ok=True, 
-            save=True, show=True, 
-            show_labels=True, 
-            show_conf=True, 
-            conf = 0.25)
-
-        #plt.imshow(res[0].plot())
-        #plt.show()
-
 
 

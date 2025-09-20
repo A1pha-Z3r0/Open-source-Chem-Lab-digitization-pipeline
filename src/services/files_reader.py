@@ -7,20 +7,14 @@ import numpy as np
 # pathlib is more OOP than os
 from pathlib import Path
 from utils import ImgConvertToTensor
-from repositories.db_utils import list_not_started_files
-from collections import OrderedDict
+from collections import OrderedDict 
 
 
 class FileHandler():
     def __init__(self,):
         self.list_img_np_array = []
         self.batch = OrderedDict()
-        self.temps_folder = "temps"
-
-
-    def db_to_tmps(self,):
-        ids_list = list_not_started_files()
-        return ids_list
+        self.temps_folder = "../temps"
 
     def files_to_tensor(self,):
         

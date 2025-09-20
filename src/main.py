@@ -8,10 +8,6 @@ app = FastAPI()
 
 app.include_router(file_upload_routes.router, prefix = "/files")
 
-
-
-
-"""
 from services.files_reader import FileHandler
 from services.ocr import Ocr
 
@@ -36,5 +32,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""
